@@ -1,0 +1,40 @@
+<div class="login-container">
+  <h2>Login</h2>
+  
+  <!-- Form -->
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <div>
+      <label for="usernameOrEmail">Username or Email</label>
+      <input id="usernameOrEmail" formControlName="usernameOrEmail" />
+      <div *ngIf="f['usernameOrEmail'].errors?.['required'] && f['usernameOrEmail'].touched">
+        Username or Email is required.
+      </div>
+      <div *ngIf="f['usernameOrEmail'].errors?.['invalidUsernameOrEmail'] && f['usernameOrEmail'].touched">
+        Please enter a valid username or email.
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" />
+      <div *ngIf="f['password'].errors?.['required'] && f['password'].touched">
+        Password is required.
+      </div>
+      <div *ngIf="f['password'].errors?.['weakPassword'] && f['password'].touched">
+        Password must include uppercase, lowercase, numbers, and special characters.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+  </form>
+
+  <!-- Message Display -->
+  <div *ngIf="message" [ngClass]="messageClass" class="message">
+    <p>{{ message }}</p>
+  </div>
+
+  <!-- Sign up message -->
+  <p class="signup-message">
+    Don't have an account? <a routerLink="/register" (click)="goToRegister()">Sign up</a>
+  </p>
+</div>

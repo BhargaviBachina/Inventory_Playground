@@ -1,0 +1,70 @@
+<div class="register-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <h2>Register</h2>
+
+    <div>
+      <label for="first_name">First Name</label>
+      <input id="first_name" formControlName="first_name" />
+      <div *ngIf="f['first_name'].errors?.['required'] && f['first_name'].touched">
+        First Name is required.
+      </div>
+      <div *ngIf="f['first_name'].errors?.['minlength'] && f['first_name'].touched">
+        First Name must be at least 3 characters.
+      </div>
+    </div>
+
+    <div>
+      <label for="username">Username</label>
+      <input id="username" formControlName="username" (blur)="checkUsernameExists(f['username'].value)" />
+      <div *ngIf="f['username'].errors?.['required'] && f['username'].touched">
+        Username is required.
+      </div>
+      <div *ngIf="f['username'].errors?.['invalidUsername'] && f['username'].touched">
+        Username must be alphanumeric and at least 3 characters.
+      </div>
+      <div *ngIf="f['username'].errors?.['usernameExists'] && f['username'].touched">
+        {{ usernameExistsMessage }}
+      </div>
+    </div>
+
+    <div>
+      <label for="email">Email</label>
+      <input id="email" formControlName="email" />
+      <div *ngIf="f['email'].errors?.['required'] && f['email'].touched">
+        Email is required.
+      </div>
+      <div *ngIf="f['email'].errors?.['email'] && f['email'].touched">
+        Enter a valid email address.
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" />
+      <div *ngIf="f['password'].errors?.['required'] && f['password'].touched">
+        Password is required.
+      </div>
+      <div *ngIf="f['password'].errors?.['weakPassword'] && f['password'].touched">
+        Password must be at least 6 characters and include an uppercase letter, number, and special character.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid || isLoading">
+      Register
+      <span *ngIf="isLoading">...</span>
+    </button>
+  </form>
+
+  <!-- Success and error messages -->
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <p class="signin-message">
+    Already have an account?
+    <a (click)="goToLogin()">Sign In</a>
+  </p>
+</div>
