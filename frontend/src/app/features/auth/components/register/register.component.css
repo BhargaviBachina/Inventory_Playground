@@ -1,120 +1,181 @@
-.register-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
+/* Body Styling */
+body {
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Gradient background */
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  transition: background-color 0.5s ease; /* Smooth transition for background color */
 }
 
-.register-container h2 {
+/* Signup Container */
+.signup-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  transition: transform 0.3s ease; /* Smooth transition for container */
+}
+
+.signup-container:hover {
+  transform: scale(1.02); /* Slight zoom effect when hovering */
+}
+
+/* Image Section */
+.image-section {
+  flex: 3; /* 60% of the container */
+  background: url('https://cdn.create.vista.com/api/media/small/247763998/stock-photo-attractive-businesswoman-sitting-table-laptop-typing-office') no-repeat center center;
+  background-size: cover;
+  border-radius: 25px;
+  height: 600px; /* Maintain height consistency */
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.image-section:hover {
+  transform: scale(1.05); /* Zoom effect on hover */
+}
+
+.image-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+  z-index: 1;
+}
+
+/* Testimonial Section */
+.testimonial {
+  position: absolute;
+  z-index: 2;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  border-radius: 15px;
+  font-size: 1rem;
+  font-style: italic;
+  color: #333333;
   text-align: center;
-  color: #333;
+  transition: transform 0.3s ease;
+}
+
+.testimonial:hover {
+  transform: translateY(-5px); /* Hover effect for testimonial */
+}
+
+/* Form Section */
+.form-section {
+  flex: 2; /* 40% of the container */
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added smooth transform */
+  max-width: 100%;
+}
+
+.form-section:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Typography */
+h2 {
+  font-size: 1.8rem;
+  color: #0288d1;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase; /* Enhance typography */
+  letter-spacing: 1px;
+}
+
+/* Form Controls */
+label {
+  font-weight: bold;
+  color: #555555;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-control {
+  border: 2px solid #bbdefb;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s ease; /* Smooth transition on focus */
+  width: 100%;
   margin-bottom: 20px;
 }
 
-.register-container label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-.register-container input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-
-.register-container input:focus {
-  border-color: #007bff;
+.form-control:focus {
+  border-color: #0288d1;
+  box-shadow: 0 0 10px rgba(2, 136, 209, 0.5);
   outline: none;
-  box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+  transform: scale(1.05); /* Slight zoom effect on focus */
 }
 
-.register-container button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
+/* Button Styling */
+.btn-primary {
+  background: linear-gradient(135deg, #0288d1, #01579b);
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
+  border-radius: 25px;
+  font-size: 1.1rem;
   font-weight: bold;
-  transition: background-color 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: #ffffff;
+  padding: 12px 20px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s, transform 0.3s ease;
 }
 
-.register-container button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+.btn-primary:hover {
+  background: linear-gradient(135deg, #01579b, #01375b);
+  transform: translateY(-2px);
 }
 
-.register-container button:hover:not(:disabled) {
-  background-color: #0056b3;
-}
-
-.register-container .spinner {
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #007bff;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  animation: spin 2s linear infinite;
-  margin-left: 10px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.register-container div {
-  margin-bottom: 15px;
-}
-
-.register-container div * {
-  font-size: 13px;
-}
-
-.register-container div div {
-  color: #d9534f;
-}
-
-.register-container p {
-  text-align: center;
-  margin-top: 15px;
-  color: #555;
-}
-
-.register-container a {
-  color: #007bff;
+/* Login Link */
+.login-link {
   text-decoration: none;
-  cursor: pointer;
-}
-
-.register-container a:hover {
-  text-decoration: navajowhite;
-}
-
-.success-message {
-  color: green;
+  color: #0288d1;
   font-weight: bold;
   text-align: center;
-  margin-top: 20px;
+  display: block;
+  margin-top: 10px;
+  transition: color 0.3s;
 }
 
-.error-message {
-  color: red;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 20px;
+.login-link:hover {
+  color: #01579b;
 }
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .signup-container {
+      flex-direction: column;
+  }
+
+  .image-section {
+      height: 300px;
+      flex: 1; /* Adjust to take up equal width in small screens */
+  }
+
+  .form-section {
+      flex: 1;
+      width: 100%;
+  }
+}
+

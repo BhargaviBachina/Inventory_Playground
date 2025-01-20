@@ -1,35 +1,29 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { AuthService } from '../../../../core/services/auth.service';
+import { FormBuilder, FormGroup, Validators,AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../../core/services/auth.service';
+ 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  message: string = '';  // Property to hold success or error messages
-  messageClass: string = '';
-
+ 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private authService: AuthService,
-    private router: Router
   ) {
-    this.loginForm = this.fb.group({
-      usernameOrEmail: [
-        '',
-        [
-          Validators.required,
-          this.usernameOrEmailValidator, // Inline custom validator
-        ],
-      ],
-      password: ['', [Validators.required, Validators.minLength(6), this.passwordPatternValidator]],
+this.loginForm = this.fb.group({
+usernameOrEmail: ['', [Validators.required, this.usernameOrEmailValidator,]],
+password: ['', [Validators.required, Validators.minLength(6), this.passwordPatternValidator]],
     });
   }
 
+  
   // Inline validator function to validate both username and email
   usernameOrEmailValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
@@ -56,45 +50,41 @@ export class LoginComponent {
     }
     return null;
   }
+ 
+  onSubmit() {
+    if (this.loginForm.valid) {
+      // Extract form values
+      const credentials = this.loginForm.value;
+      console.log("login detailss :",credentials);
 
-  onLogin(): void {
-    if (this.loginForm.invalid) {
-      console.log('Form is invalid');
-      return;
-    }
+      // Call the login method of AuthService
+      this.authService.login(credentials).subscribe(
+      
+        (response: { token: any; }) => {
+          // Assuming the response contains the JWT token
+          console.log("response",response);
+          const token = response.token;
+          console.log("token",token);
+          if (token) {
+            // Store the token in localStorage
+            localStorage.setItem('token', token);
 
-    const formData = this.loginForm.value;
-    this.authService.login(formData).subscribe({
-      next: (response) => {
-        this.authService.saveToken(response.token);
-        this.router.navigate(['/dashboard']);
-        this.message = 'User logged in successfully!';
-        this.messageClass = 'success';  // Success message
-      },
-      error: (err) => {
-        if (err.status === 404) {
-          this.message = 'User not found';
-          this.messageClass = 'error';  // Error message
-        } else if (err.status === 401) {
-          this.message = 'Invalid password';
-          this.messageClass = 'error';  // Error message
-        } else {
-          this.message = 'An error occurred. Please try again.';
-          this.messageClass = 'error';  // Error message
+            alert('Login successful!');
+           // this.toastr.success('Login successful!', 'Success');
+            // Redirect to dashboard after successful login
+            this.router.navigate(['/dashboard']);
+          }
+        },
+        (error: any) => {
+          alert('Login failed. Please check your credentials and try again.');
+        //  this.toastr.error('Login failed. Please check your credentials and try again.', 'Error');
+          console.error('Login failed', error);
         }
-      },
-    });
+      );
+    }
   }
 
-  // Helper to access form controls in the template
-  get f() {
-    return this.loginForm.controls;
-  }
-
-  goToRegister() {
-    console.log('Navigating to register page...');
-    this.router.navigate(['/register']).catch(err => {
-      console.error('Error navigating to register:', err);
-    });
+  redirectToRegister(): void {
+    this.router.navigate(['/register']);
   }
 }

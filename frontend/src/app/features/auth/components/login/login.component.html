@@ -1,40 +1,59 @@
-<div class="login-container">
-  <h2>Login</h2>
-  
-  <!-- Form -->
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-    <div>
-      <label for="usernameOrEmail">Username or Email</label>
-      <input id="usernameOrEmail" formControlName="usernameOrEmail" />
-      <div *ngIf="f['usernameOrEmail'].errors?.['required'] && f['usernameOrEmail'].touched">
-        Username or Email is required.
+<div class="row login-container">
+  <!-- Form Section -->
+  <div class="col-md-5 form-section">
+      <div class="container">
+          <!-- Header (Logo and Title) -->
+          <div class="header">
+              <div class="header-content" >
+                 
+              </div>
+          </div>
+          <!-- Login Form -->
+          <div class="form-wrapper">
+              <h3 class="mb-3">Log in</h3>
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                  <!-- Email -->
+                  <div class="mb-3">
+                      <label for="usernameOrEmail" class="form-label">Email/Username *</label>
+                      <input type="usernameOrEmail" id="usernameOrEmail" class="form-control" formControlName="usernameOrEmail"
+                          placeholder="Enter your email or Username " />
+                      <small *ngIf="loginForm.get('usernameOrEmail')?.invalid && loginForm.get('usernameOrEmail')?.touched"
+                          class="text-danger">
+                          User name or Email is required.
+                      </small>
+                     
+                  </div>
+                  <!-- Password -->
+                  <div class="mb-3">
+                      <label for="password" class="form-label">Password*</label>
+                      <input type="password" id="password" class="form-control" formControlName="password"
+                          placeholder="Enter your password" />
+                      <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+                          class="text-danger">
+                          Password is required.
+                      </small>
+                      
+                  </div>
+                  <!-- Submit Button -->
+                  <button type="submit" class="btn btn-primary w-100 mt-3" [disabled]="loginForm.invalid">
+                      Sign in
+                  </button>
+              </form>
+              
+              <!-- Sign Up Redirect -->
+              <div class="text-center mt-3">
+                  <p class="mt-2">
+                      Don’t have an account? <a (click)="redirectToRegister()" class="login-link">Sign up</a>
+                  </p>
+              </div>
+          </div>
       </div>
-      <div *ngIf="f['usernameOrEmail'].errors?.['invalidUsernameOrEmail'] && f['usernameOrEmail'].touched">
-        Please enter a valid username or email.
-      </div>
-    </div>
-
-    <div>
-      <label for="password">Password</label>
-      <input id="password" type="password" formControlName="password" />
-      <div *ngIf="f['password'].errors?.['required'] && f['password'].touched">
-        Password is required.
-      </div>
-      <div *ngIf="f['password'].errors?.['weakPassword'] && f['password'].touched">
-        Password must include uppercase, lowercase, numbers, and special characters.
-      </div>
-    </div>
-
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
-  </form>
-
-  <!-- Message Display -->
-  <div *ngIf="message" [ngClass]="messageClass" class="message">
-    <p>{{ message }}</p>
   </div>
 
-  <!-- Sign up message -->
-  <p class="signup-message">
-    Don't have an account? <a routerLink="/register" (click)="goToRegister()">Sign up</a>
-  </p>
+  <!-- Image Section -->
+  <div class="col-md-7 image-section">
+      <div class="testimonial">
+      </div>
+  </div>
 </div>
+

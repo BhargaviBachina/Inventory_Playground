@@ -22,6 +22,7 @@ export class RegisterComponent {
   ) {
     this.registerForm = this.fb.group({
       first_name: ['', [Validators.required, Validators.minLength(3)]],
+      last_name: ['', [Validators.required, Validators.minLength(3)]],
       username: [
         '',
         [
@@ -64,7 +65,7 @@ export class RegisterComponent {
   }
 
   // Check if the username is already taken (using the AuthService)
-  checkUsernameExists(username: string): void {
+  /*checkUsernameExists(username: string): void {
     this.authService.checkUsernameExists(username).subscribe({
       next: (exists: boolean) => {
         if (exists) {
@@ -78,7 +79,7 @@ export class RegisterComponent {
         console.error('Error checking username existence', err);
       },
     });
-  }
+  }*/
 
   onRegister(): void {
     if (this.registerForm.invalid) {
@@ -90,7 +91,7 @@ export class RegisterComponent {
     const formData = this.registerForm.value;
 
     // Check if username exists before submitting the registration
-    this.checkUsernameExists(formData.username);
+    //this.checkUsernameExists(formData.username);
 
     // Set loading state to true
     this.isLoading = true;
@@ -108,7 +109,7 @@ export class RegisterComponent {
           this.successMessage = 'User registered successfully! You will be redirected to the login page shortly.';
           setTimeout(() => {
             this.router.navigate(['/auth/login']);
-          }, 2000); // Navigate after 2 seconds
+          }, 3000); // Navigate after 2 seconds
         },
         error: (err) => {
           console.error(err.message); // Handle error

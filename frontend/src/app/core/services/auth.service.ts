@@ -16,9 +16,9 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   // Check if the username exists
-  checkUsernameExists(username: string): Observable<boolean> {
+  /*checkUsernameExists(username: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.authApiUrl}/check-username/${username}`);
-  }
+  }*/
 
   // Login user
   login(data: { usernameOrEmail: string; password: string }): Observable<any> {
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   // Register user
-  register(data: { first_name: string; username: string; email: string; password: string }): Observable<any> {
+  register(data: { first_name: string; last_name:string; username: string; email: string; password: string }): Observable<any> {
     return this.http.post<any>(`${this.authApiUrl}/register`, data);
   }
 

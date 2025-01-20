@@ -1,70 +1,85 @@
-<div class="register-container">
-  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-    <h2>Register</h2>
+<div class="row signup-container">
+  <!-- Form Section -->
+  <div class="col-md-5 form-section">
+      <div class="container">
+          <h3 class="mb-3">Sign up</h3>
+          <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+              <!-- First Name -->
+              <div class="mb-3">
+                  <label for="firstname" class="form-label">First Name*</label>
+                  <input type="text" id="firstname" class="form-control" formControlName="first_name"
+                      placeholder="Enter your first name" />
+                  <small *ngIf="registerForm.get('firstname')?.invalid && registerForm.get('firstname')?.touched"
+                      class="text-danger">
+                      First Name is required.
+                  </small>
+              </div>
+              <!-- Last Name -->
+              <div class="mb-3">
+                  <label for="lastname" class="form-label">Last Name*</label>
+                  <input type="text" id="lastname" class="form-control" formControlName="last_name"
+                      placeholder="Enter your last name" />
+                  <small *ngIf="registerForm.get('lastname')?.invalid && registerForm.get('lastname')?.touched"
+                      class="text-danger">
+                      Last Name is required.
+                  </small>
+              </div>
 
-    <div>
-      <label for="first_name">First Name</label>
-      <input id="first_name" formControlName="first_name" />
-      <div *ngIf="f['first_name'].errors?.['required'] && f['first_name'].touched">
-        First Name is required.
-      </div>
-      <div *ngIf="f['first_name'].errors?.['minlength'] && f['first_name'].touched">
-        First Name must be at least 3 characters.
-      </div>
-    </div>
+              <div class="mb-3">
+                <label for="username" class="form-label">User Name*</label>
+                <input type="text" id="username" class="form-control" formControlName="username"
+                    placeholder="Enter your user name" />
+                <small *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+                    class="text-danger">
+                    User Name is required.
+                </small>
+            </div>
 
-    <div>
-      <label for="username">Username</label>
-      <input id="username" formControlName="username" (blur)="checkUsernameExists(f['username'].value)" />
-      <div *ngIf="f['username'].errors?.['required'] && f['username'].touched">
-        Username is required.
+              <!-- Email -->
+              <div class="mb-3">
+                  <label for="email" class="form-label">Email*</label>
+                  <input type="email" id="email" class="form-control" formControlName="email"
+                      placeholder="Enter your email" />
+                  <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+                      class="text-danger">
+                      Please enter a valid email.
+                  </small>
+              </div>
+              <!-- Password -->
+              <div class="mb-3">
+                  <label for="password" class="form-label">Password*</label>
+                  <input type="password" id="password" class="form-control" formControlName="password"
+                      placeholder="Create a password" />
+                  <small *ngIf="registerForm.get('password')?.errors?.['minlength']" class="text-danger">
+                      Password must be at least 8 characters long.
+                  </small>
+                  <small *ngIf="registerForm.get('password')?.errors?.['pattern']" class="text-danger">
+                      Password must contain at least one special character.
+                  </small>
+              </div>
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">
+                  Create account
+              </button>
+          </form>
+          <!-- Success and error messages -->
+          <div *ngIf="successMessage" class="success-message">
+            {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
+          <div class="text-center mt-3">
+              <p class="mt-2">
+                  Already have an account? <a (click)="goToLogin()" class="login-link">sign in</a>
+              </p>
+          </div>
       </div>
-      <div *ngIf="f['username'].errors?.['invalidUsername'] && f['username'].touched">
-        Username must be alphanumeric and at least 3 characters.
-      </div>
-      <div *ngIf="f['username'].errors?.['usernameExists'] && f['username'].touched">
-        {{ usernameExistsMessage }}
-      </div>
-    </div>
-
-    <div>
-      <label for="email">Email</label>
-      <input id="email" formControlName="email" />
-      <div *ngIf="f['email'].errors?.['required'] && f['email'].touched">
-        Email is required.
-      </div>
-      <div *ngIf="f['email'].errors?.['email'] && f['email'].touched">
-        Enter a valid email address.
-      </div>
-    </div>
-
-    <div>
-      <label for="password">Password</label>
-      <input id="password" type="password" formControlName="password" />
-      <div *ngIf="f['password'].errors?.['required'] && f['password'].touched">
-        Password is required.
-      </div>
-      <div *ngIf="f['password'].errors?.['weakPassword'] && f['password'].touched">
-        Password must be at least 6 characters and include an uppercase letter, number, and special character.
-      </div>
-    </div>
-
-    <button type="submit" [disabled]="registerForm.invalid || isLoading">
-      Register
-      <span *ngIf="isLoading">...</span>
-    </button>
-  </form>
-
-  <!-- Success and error messages -->
-  <div *ngIf="successMessage" class="success-message">
-    {{ successMessage }}
   </div>
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
-  </div>
 
-  <p class="signin-message">
-    Already have an account?
-    <a (click)="goToLogin()">Sign In</a>
-  </p>
+  <!-- Image Section -->
+  <div class="col-md-7 image-section">
+      <div class="testimonial">
+      </div>
+  </div>
 </div>
